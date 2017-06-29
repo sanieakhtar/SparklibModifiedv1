@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CigTrack.iml" filepath="$PROJECT_DIR$/CigTrack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CigaretteCounter/CigaretteCounter.iml" filepath="$PROJECT_DIR$/CigaretteCounter/CigaretteCounter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sparklib-samples-master.iml" filepath="$PROJECT_DIR$/sparklib-samples-master.iml" />
+    </modules>
+  </component>
+</project>
