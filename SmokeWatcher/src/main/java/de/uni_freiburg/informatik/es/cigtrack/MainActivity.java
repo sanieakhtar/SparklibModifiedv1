@@ -9,7 +9,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
+
+import android.transition.AutoTransition;
+import android.transition.Scene;
+import android.transition.Transition;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.RelativeLayout;
+import android.transition.TransitionManager;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 Date date = new Date();
                 String time = sdf.format(date);
                 Spark.Event ee = new Spark(context, mSparkCalls).new Event(time);
+                // Spark.Event p = new Spark.Event(time);
                 evs.add(numcigs,ee);
                 mSpark.setEvents(evs);
 
@@ -80,8 +92,15 @@ public class MainActivity extends AppCompatActivity {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-        };
+        }
     };
+
+    //scenes to transition
+    private Scene scene1, scene2;
+    //transition to move between scenes
+    private Transition transition;
+    //flag to swap between scenes
+    private boolean start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +109,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(mRemoveEventAction);
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab.setOnClickListener(mRemoveEventAction);
 
-        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
-        fab2.setOnClickListener(mAddEventAction);
+        Button RemoveSmoke = (Button) findViewById(R.id.RemoveButton);
+        RemoveSmoke.setOnClickListener(mRemoveEventAction);
+
+        //FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        //fab2.setOnClickListener(mAddEventAction);
+
+        Button AddSmoke = (Button) findViewById(R.id.AddButton);
+        AddSmoke.setOnClickListener(mAddEventAction);
 
         mSpark = new Spark(this, mSparkCalls);
     }
@@ -120,4 +145,30 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+//    //get the layout ID
+//    RelativeLayout baseLayout = (RelativeLayout)findViewById(R.id.base);
+//
+//    //first scene
+//    ViewGroup startViews = (ViewGroup)getLayoutInflater()
+//            .inflate(R.layout.opening, baseLayout, false);
+//
+//    //second scene
+//    ViewGroup endViews = (ViewGroup)getLayoutInflater()
+//            .inflate(R.layout.activity_main, baseLayout, false);
+//
+//    //create the two scenes
+//
+//    scene1 = new Scene (baseLayout, startViews);
+//
+//    public void setScene1(Scene scene1) {
+//        this.scene1 = scene1;
+//    }
+//
+//    @Override
+//    public Scene (ViewGroup sceneRoot) {
+//        return super.Scene(opening);
+//    }
+//
+//    scene2 = new Scene(baseLayout, endViews);
 }

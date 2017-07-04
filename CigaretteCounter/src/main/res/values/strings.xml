@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">CigTrack</string>
-    <string name="action_settings">Settings</string>
-    <plurals name="numcigs">
-        <item quantity="zero">You had %d cigarettes</item>
-        <item quantity="one"> You had %d cigarette</item>
-        <item quantity="other">You had %d cigarettes</item>
-     </plurals>
-</resources>

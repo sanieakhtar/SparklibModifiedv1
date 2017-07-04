@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SmokeWatcher</string>
+    <string name="action_settings">Settings</string>
+    <plurals name="numcigs">
+        <item quantity="zero">You have smoked %d cigarettes today!</item>
+        <item quantity="one"> You have smoked %d cigarette today!</item>
+        <item quantity="other">You have smoked %d cigarettes today!</item>
+     </plurals>
+</resources>

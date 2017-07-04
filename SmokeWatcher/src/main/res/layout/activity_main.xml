@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.uni_freiburg.informatik.es.cigtrack.MainActivity">
+    tools:context=".TransitionsActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/content_main" />
+
+        <Button
+            android:id="@+id/AddButton"
+            android:layout_width="109dp"
+            android:layout_height="73dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@android:color/black"
+            android:fontFamily="casual"
+            android:stateListAnimator="@drawable/ic_remove"
+            android:text="Add Smoke"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/RemoveButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.857" />
+
+        <Button
+            android:id="@+id/RemoveButton"
+            android:layout_width="109dp"
+            android:layout_height="73dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="53dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@android:color/white"
+            android:fontFamily="casual"
+            android:text="Remove Smoke"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.857" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/newColorTwo"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="invisible"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:elevation="0dp"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|left"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_remove" />
+
+</android.support.design.widget.CoordinatorLayout>
