@@ -25,6 +25,7 @@ import android.transition.TransitionManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import eu.senseable.sparklib.Spark;
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 ////////////////////////////////////////////////////////////////////////////////////
                 final Context context = getApplicationContext();
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.GERMANY);
                 Date date = new Date();
                 String time = sdf.format(date);
                 Spark.Event ee = new Spark(context, mSparkCalls).new Event(time);
