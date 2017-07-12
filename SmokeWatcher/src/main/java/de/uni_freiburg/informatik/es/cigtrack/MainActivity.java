@@ -1,9 +1,12 @@
 package de.uni_freiburg.informatik.es.cigtrack;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.design.widget.FloatingActionButton;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.support.v4.view.ViewPager.DecorView;
 
 import android.transition.AutoTransition;
 import android.transition.Scene;
@@ -96,13 +100,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //scenes to transition
-    private Scene scene1, scene2;
-    //transition to move between scenes
-    private Transition transition;
-    //flag to swap between scenes
-    private boolean start;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,19 +107,40 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setOnClickListener(mRemoveEventAction);
-
         Button RemoveSmoke = (Button) findViewById(R.id.RemoveButton);
         RemoveSmoke.setOnClickListener(mRemoveEventAction);
-
-        //FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
-        //fab2.setOnClickListener(mAddEventAction);
 
         Button AddSmoke = (Button) findViewById(R.id.AddButton);
         AddSmoke.setOnClickListener(mAddEventAction);
 
+//        TextView myTextView = (TextView) findViewById(R.id.appMotto);
+//        Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/MarkerFelt.xml");
+//        myTextView.setTypeface(typeface);
+
+
         mSpark = new Spark(this, mSparkCalls);
+
+        Intent intent = new Intent(this, IntroActivity.class);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
     }
 
     @Override

@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">SmokeWatcher</string>
+    <string name="app_name">Smokey</string>
     <string name="action_settings">Settings</string>
+    <string name="add_smoke">Add Smoke</string>
+    <string name="remove_smoke">Remove Smoke</string>
+    <string name="app_motto">Your friendly neighbourhood quitting pet!</string>
     <plurals name="numcigs">
         <item quantity="zero">You have smoked %d cigarettes today!</item>
         <item quantity="one"> You have smoked %d cigarette today!</item>
