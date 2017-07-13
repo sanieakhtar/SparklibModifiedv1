@@ -17,6 +17,24 @@ public class MainForm extends AppCompatActivity {
     Button buttonAddData;
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_form);
@@ -26,10 +44,10 @@ public class MainForm extends AppCompatActivity {
         box_birth = (EditText)findViewById(R.id.box_birth);
         box_weight = (EditText)findViewById(R.id.box_weight);
         buttonAddData = (Button)findViewById(R.id.button_adduser);
-        //AddData();
+        AddData();
     }
 
-/*    public void AddData() {
+    public void AddData() {
         buttonAddData.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -45,5 +63,5 @@ public class MainForm extends AppCompatActivity {
                     }
                 }
         );
-    }*/
+    }
 }

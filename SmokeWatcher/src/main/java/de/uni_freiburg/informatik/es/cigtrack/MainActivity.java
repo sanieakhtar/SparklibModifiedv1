@@ -66,25 +66,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    UserData myDb;
-    EditText box_name,box_birth,box_weight;
-    Button buttonAddData;
-
-    private View.OnClickListener mAddToDatabase = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            boolean isInserted = myDb.insertData(
-                    box_name.getText().toString(),
-                    box_birth.getText().toString(),
-                    box_weight.getText().toString());
-            /*if (isInserted == true)
-                Toast.makeText(MainForm.this, "Data Inserted", Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(MainForm.this, "Data not Inserted", Toast.LENGTH_LONG).show();*/
-        }
-    };
-
-
     private View.OnClickListener mAddEventAction = new View.OnClickListener() {
         @Override
         public void onClick(View b) {
