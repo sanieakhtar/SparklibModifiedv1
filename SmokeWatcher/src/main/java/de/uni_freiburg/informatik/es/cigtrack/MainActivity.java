@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.support.v4.view.ViewPager.DecorView;
 
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.transition.TransitionManager;
+import android.widget.Toast;
 
 
 import java.text.SimpleDateFormat;
@@ -63,6 +65,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    UserData myDb;
+    EditText box_name,box_birth,box_weight;
+    Button buttonAddData;
+
+    private View.OnClickListener mAddToDatabase = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            boolean isInserted = myDb.insertData(
+                    box_name.getText().toString(),
+                    box_birth.getText().toString(),
+                    box_weight.getText().toString());
+            /*if (isInserted == true)
+                Toast.makeText(MainForm.this, "Data Inserted", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(MainForm.this, "Data not Inserted", Toast.LENGTH_LONG).show();*/
+        }
+    };
+
 
     private View.OnClickListener mAddEventAction = new View.OnClickListener() {
         @Override
@@ -122,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
+
     }
 
 

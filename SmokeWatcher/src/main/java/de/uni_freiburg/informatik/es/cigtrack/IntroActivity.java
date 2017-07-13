@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.github.paolorotolo.appintro.AppIntro;
-import com.github.paolorotolo.appintro.AppIntroFragment;
 
+import static de.uni_freiburg.informatik.es.cigtrack.R.layout.main_form;
 import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro;
 import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro_2;
 import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro_3;
@@ -22,6 +22,7 @@ public class IntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
 
         addSlide(IntroSlide.newInstance(app_intro));
+        addSlide(IntroSlide.newInstance(main_form));
         addSlide(IntroSlide.newInstance(app_intro_2));
         addSlide(IntroSlide.newInstance(app_intro_3));
 //        addSlide(secondFragment);
