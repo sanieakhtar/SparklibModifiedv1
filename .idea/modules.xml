@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmokeWatcher/SmokeWatcher.iml" filepath="$PROJECT_DIR$/SmokeWatcher/SmokeWatcher.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SmokeWatcherV1.iml" filepath="$PROJECT_DIR$/SmokeWatcherV1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Smokey.iml" filepath="$PROJECT_DIR$/Smokey.iml" />
     </modules>
   </component>
 </project>

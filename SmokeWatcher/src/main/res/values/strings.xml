@@ -8,5 +8,9 @@
         <item quantity="zero">You have smoked %d cigarettes today!</item>
         <item quantity="one"> You have smoked %d cigarette today!</item>
         <item quantity="other">You have smoked %d cigarettes today!</item>
-     </plurals>
+    </plurals>
+    <string name="app_intro">This is Smokey, your pet puppy!</string>
+    <string name="app_intro2">And he is going to help you stop smoking!</string>
+    <string name="app_intro3">All you have to do is keep him happy..</string>
+    <string name="app_intro4">And he is going to be happy when you don\'t smoke!</string>
 </resources>

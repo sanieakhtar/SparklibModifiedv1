@@ -9,6 +9,8 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
 import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro;
+import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro_2;
+import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro_3;
 
 /**
  * Created by sanieaakhtar on 7/10/17.
@@ -20,6 +22,8 @@ public class IntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
 
         addSlide(IntroSlide.newInstance(app_intro));
+        addSlide(IntroSlide.newInstance(app_intro_2));
+        addSlide(IntroSlide.newInstance(app_intro_3));
 //        addSlide(secondFragment);
 //        addSlide(thirdFragment);
 //        addSlide(fourthFragment);
@@ -27,7 +31,7 @@ public class IntroActivity extends AppIntro {
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
 
-        addSlide(AppIntroFragment.newInstance("Slide two", "This is a test", R.drawable.smokewatcherlogosmall, getResources().getColor(R.color.newColorTwo)));
+//        addSlide(AppIntroFragment.newInstance("Slide two", "This is a test", R.drawable.smokewatcherlogosmall, getResources().getColor(R.color.newColorTwo)));
 
 //        // OPTIONAL METHODS
 //        // Override bar/separator color.
