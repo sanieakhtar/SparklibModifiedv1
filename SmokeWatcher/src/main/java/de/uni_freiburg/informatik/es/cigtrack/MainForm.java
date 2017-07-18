@@ -6,6 +6,8 @@ package de.uni_freiburg.informatik.es.cigtrack;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -39,18 +41,17 @@ public class MainForm extends AppCompatActivity {
         box_birth = (EditText)findViewById(R.id.box_birth);
         box_weight = (EditText)findViewById(R.id.box_weight);
         buttonAddData = (Button)findViewById(R.id.button_send);
-        buttonReadData = (Button)findViewById(R.id.button_read);
         textView = (TextView)findViewById(R.id.text_update);
 
         box_birth.setOnClickListener(openCalender);
         box_weight.setOnClickListener(openWeightSelector);
 
         AddData();
-        ReadData();
     }
 
     /********************************* ADD DATA TO DB *********************************/
 
+    private boolean proceed;
     public void AddData() {
         buttonAddData.setOnClickListener(
                 new View.OnClickListener() {
@@ -62,10 +63,13 @@ public class MainForm extends AppCompatActivity {
                                     box_name.getText().toString(),
                                     box_birth.getText().toString(),
                                     box_weight.getText().toString());
-                            if (isInserted)
-                                Toast.makeText(MainForm.this, "Data Inserted", Toast.LENGTH_LONG).show();
-                            else
+                            if (isInserted) {
+                                proceed = true;
+                            }
+                            else {
                                 Toast.makeText(MainForm.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+                                boolean proceed = false;
+                            }
                         }
                         else {
                             boolean isUpdated = myDb.updateData(
@@ -73,11 +77,18 @@ public class MainForm extends AppCompatActivity {
                                     box_name.getText().toString(),
                                     box_birth.getText().toString(),
                                     box_weight.getText().toString());
-                            if (isUpdated)
-                                Toast.makeText(MainForm.this, "Data Updated", Toast.LENGTH_LONG).show();
-                            else
+                            if (isUpdated) {
+                                proceed = true;
+                            }
+                            else {
                                 Toast.makeText(MainForm.this, "Data not Updated", Toast.LENGTH_LONG).show();
+                                proceed = false;
+                            }
                         }
+                        if (proceed){
+                            ReadData();
+                        }
+
                     }
                 }
         );
@@ -86,30 +97,22 @@ public class MainForm extends AppCompatActivity {
     /********************************* READ FROM DB *********************************/
 
     public void ReadData() {
-        buttonReadData.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Cursor result = myDb.readData();
-                        if(result.getCount() == 0){
-                            // Show message
-                            ShowMsg("Error","No Data");
-                            return;
-                        }
-                        else {
-                            StringBuffer buffer = new StringBuffer();
-                            while(result.moveToNext()) {
-                                buffer.append("NAME :" + result.getString(1)+"\n");
-                                buffer.append("BIRTHDAY :" + result.getString(2)+"\n");
-                                buffer.append("WEIGHT :" + result.getString(3)+" Kg.\n");
-                            }
-                            // Show data
-                            // ShowMsg("Data",buffer.toString());
-                            textView.setText(buffer.toString());
-                        }
-                    }
-                }
-        );
+        Cursor result = myDb.readData();
+        if(result.getCount() == 0){
+            // Show message
+            ShowMsg("Error","No Data");
+            return;
+        }
+        else {
+            StringBuffer buffer = new StringBuffer();
+            while(result.moveToNext()) {
+                buffer.append("NAME :" + result.getString(1)+"\n");
+                buffer.append("BIRTHDAY :" + result.getString(2)+"\n");
+                buffer.append("WEIGHT :" + result.getString(3)+" Kg.\n");
+            }
+            // Show data
+            ShowMsg("@String/form_dialogConfirm",buffer.toString());
+        }
     }
 
     public void ShowMsg(String title,String data){
@@ -117,6 +120,24 @@ public class MainForm extends AppCompatActivity {
         builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(data);
+        builder.show();
+        builder.setPositiveButton("Accept",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.cancel();
+                    }
+                });
+
+        builder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.cancel();
+                    }
+                });
         builder.show();
     }
 

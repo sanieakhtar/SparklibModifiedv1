@@ -21,6 +21,7 @@
     <string name="form_header">Before you adopt your new pet, we need to know a bit about you:</string>
     <string name="form_buttonOK">OK</string>
     <string name="form_buttonRead">Read from DB</string>
+    <string name="form_dialogConfirm">Please confirm that the data entered is correct:</string>
 
 
 </resources>
