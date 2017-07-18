@@ -39,10 +39,11 @@ import java.util.List;
 import java.util.Locale;
 
 import eu.senseable.sparklib.Spark;
-
 public class MainActivity extends AppCompatActivity {
 
     public Spark mSpark = null;
+    public int last_numcigs = 0;
+
     public Spark.Callbacks mSparkCalls = new Spark.Callbacks.Stub() {
         @Override
         public void onEventsChanged(List<Spark.Event> events) {
@@ -52,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
             String msg = getResources().getQuantityString(R.plurals.numcigs, numcigs, numcigs);
             TextView txt = (TextView) findViewById(R.id.text);
             txt.setText(msg);
+
+            /*
+            * Generate a Pup-up Dialog to disturb the user.
+            */
+
+            if (numcigs > last_numcigs) {
+                ingnitionPopup();
+            }
+
+            last_numcigs = numcigs;
         }
     };
 
@@ -94,24 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 evs.add(numcigs,ee);
                 mSpark.setEvents(evs);
 
-                ////////////////////////////////////////////////////////////////////////////////////
-
-                /*
-                 * Generate a Pup-up Dialog to disturb the user.
-                 */
-
-                final Dialog dialog_popup = new Dialog(MainActivity.this);
-                dialog_popup.setTitle("Ignition Detected!");
-                dialog_popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog_popup.setContentView(R.layout.dialog_smokedetected);
-                View v = getWindow().getDecorView();
-                v.setBackgroundResource(android.R.color.transparent);
-                // TextView tv_pup = (TextView) dialog_popup.findViewById(R.id.textView_ignitepup);
-                // tv_pup.setText("You should stop smoking");
-                dialog_popup.show();
-
-                ////////////////////////////////////////////////////////////////////////////////////
-
                 int numcigsnew = evs.size();
                 String msg = getResources().getQuantityString(R.plurals.numcigs, numcigsnew, numcigsnew);
                 TextView txt = (TextView) findViewById(R.id.text);
@@ -122,6 +115,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void ingnitionPopup() {
+
+        /*
+        * Generate a Pup-up Dialog to disturb the user.
+        */
+
+        final Dialog dialog_popup = new Dialog(MainActivity.this);
+        dialog_popup.setTitle("Ignition Detected!");
+        dialog_popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_popup.setContentView(R.layout.dialog_smokedetected);
+        View v = getWindow().getDecorView();
+        v.setBackgroundResource(android.R.color.transparent);
+        // TextView tv_pup = (TextView) dialog_popup.findViewById(R.id.textView_ignitepup);
+        // tv_pup.setText("You should stop smoking");
+        dialog_popup.show();
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

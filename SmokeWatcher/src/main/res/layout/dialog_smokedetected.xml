@@ -5,7 +5,8 @@
     android:layout_marginLeft="20dip"
     android:layout_marginRight="20dip"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:theme="@style/AppTheme.NoActionBar">
 
     <ImageView
         android:id="@+id/image_pupsmoke"
@@ -16,7 +17,7 @@
         android:layout_marginTop="34dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
-        app:srcCompat="@drawable/foxyemoji15" />
+        app:srcCompat="@drawable/foxyemoji14" />
 
     <TextView
         android:id="@+id/textView_pupsmoke"
@@ -28,4 +29,5 @@
         android:text="You should stop smoking"
         android:textColor="@color/colorAccent"
         android:textSize="24sp" />
+
 </RelativeLayout>
