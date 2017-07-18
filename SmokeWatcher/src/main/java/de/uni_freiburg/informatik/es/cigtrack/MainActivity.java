@@ -198,6 +198,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_launchspark) {
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("eu.senseable.companion");
+            if (launchIntent != null) {
+                startActivity(launchIntent);//null pointer check in case package name was not found
+            }
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_launchspark"
+        android:orderInCategory="101"
+        android:title="Launch Spark Companion"
+        app:showAsAction="never"/>
 </menu>
