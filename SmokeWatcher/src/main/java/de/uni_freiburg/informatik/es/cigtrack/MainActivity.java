@@ -1,8 +1,11 @@
 package de.uni_freiburg.informatik.es.cigtrack;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.preference.Preference;
@@ -12,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -91,6 +96,22 @@ public class MainActivity extends AppCompatActivity {
 
                 ////////////////////////////////////////////////////////////////////////////////////
 
+                /*
+                 * Generate a Pup-up Dialog to disturb the user.
+                 */
+
+                final Dialog dialog_popup = new Dialog(MainActivity.this);
+                dialog_popup.setTitle("Ignition Detected!");
+                dialog_popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog_popup.setContentView(R.layout.dialog_smokedetected);
+                View v = getWindow().getDecorView();
+                v.setBackgroundResource(android.R.color.transparent);
+                // TextView tv_pup = (TextView) dialog_popup.findViewById(R.id.textView_ignitepup);
+                // tv_pup.setText("You should stop smoking");
+                dialog_popup.show();
+
+                ////////////////////////////////////////////////////////////////////////////////////
+
                 int numcigsnew = evs.size();
                 String msg = getResources().getQuantityString(R.plurals.numcigs, numcigsnew, numcigsnew);
                 TextView txt = (TextView) findViewById(R.id.text);
@@ -120,9 +141,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intro = new Intent(this, IntroActivity.class);
 
         startActivity(intro);
-
-        Intent dataCol = new Intent(this, MainForm.class);
-        startActivity(dataCol);
 
     }
 
