@@ -1,7 +1,8 @@
 package de.uni_freiburg.informatik.es.cigtrack;
 
-/**
+/*
  * Created by elio on 7/13/17.
+ * This file contains the Registration Formular activity.
  */
 
 import android.app.DatePickerDialog;
@@ -27,7 +28,7 @@ import java.util.Locale;
 public class MainForm extends AppCompatActivity {
     UserData myDb;
     EditText box_name,box_birth,box_weight;
-    Button buttonAddData, buttonReadData;
+    Button buttonAddData;
     TextView textView;
 
     @Override
@@ -41,7 +42,6 @@ public class MainForm extends AppCompatActivity {
         box_birth = (EditText)findViewById(R.id.box_birth);
         box_weight = (EditText)findViewById(R.id.box_weight);
         buttonAddData = (Button)findViewById(R.id.button_send);
-        textView = (TextView)findViewById(R.id.text_update);
 
         box_birth.setOnClickListener(openCalender);
         box_weight.setOnClickListener(openWeightSelector);
@@ -51,7 +51,7 @@ public class MainForm extends AppCompatActivity {
 
     /********************************* ADD DATA TO DB *********************************/
 
-    private boolean proceed;
+    private boolean proceed = false;
     public void AddData() {
         buttonAddData.setOnClickListener(
                 new View.OnClickListener() {
@@ -68,7 +68,7 @@ public class MainForm extends AppCompatActivity {
                             }
                             else {
                                 Toast.makeText(MainForm.this, "Data not Inserted", Toast.LENGTH_LONG).show();
-                                boolean proceed = false;
+                                proceed = false;
                             }
                         }
                         else {
@@ -101,27 +101,25 @@ public class MainForm extends AppCompatActivity {
         if(result.getCount() == 0){
             // Show message
             ShowMsg("Error","No Data");
-            return;
         }
         else {
             StringBuffer buffer = new StringBuffer();
             while(result.moveToNext()) {
-                buffer.append("NAME :" + result.getString(1)+"\n");
-                buffer.append("BIRTHDAY :" + result.getString(2)+"\n");
-                buffer.append("WEIGHT :" + result.getString(3)+" Kg.\n");
+                buffer.append("Nme: " + result.getString(1)+"\n");
+                buffer.append("Birthday: " + result.getString(2)+"\n");
+                buffer.append("Weight: " + result.getString(3)+" Kg.\n");
             }
             // Show data
-            ShowMsg("@String/form_dialogConfirm",buffer.toString());
+            ShowMsg(getString(R.string.form_dialogConfirm),buffer.toString());
         }
     }
 
     public void ShowMsg(String title,String data){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(data);
-        builder.show();
-        builder.setPositiveButton("Accept",
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(this);
+        alert_confirm.setCancelable(true);
+        alert_confirm.setTitle(title);
+        alert_confirm.setMessage(data);
+        alert_confirm.setPositiveButton("Accept",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
@@ -130,7 +128,7 @@ public class MainForm extends AppCompatActivity {
                     }
                 });
 
-        builder.setNegativeButton("Cancel",
+        alert_confirm.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
@@ -138,7 +136,7 @@ public class MainForm extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        builder.show();
+        alert_confirm.show();
     }
 
     /********************************* BIRTHDAY DIALOG *********************************/

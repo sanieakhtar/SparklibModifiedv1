@@ -80,30 +80,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/box_weight" />
 
-    <Button
-        android:id="@+id/button_read"
-        style="@android:style/Widget.Holo.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="casual"
-        android:inputType="none"
-        android:text="@string/form_buttonRead"
-        app:layout_constraintBottom_toBottomOf="@+id/text_update"
-        app:layout_constraintHorizontal_bias="0.894"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/button_send"
-        app:layout_constraintTop_toBottomOf="@+id/box_weight"
-        app:layout_constraintVertical_bias="0.188" />
-
-    <TextView
-        android:id="@+id/text_update"
-        android:layout_width="374dp"
-        android:layout_height="106dp"
-        android:layout_marginBottom="16dp"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>
