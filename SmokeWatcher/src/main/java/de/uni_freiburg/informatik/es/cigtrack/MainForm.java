@@ -155,7 +155,7 @@ public class MainForm extends AppCompatActivity {
         box_birth.setText(sdf.format(myCalendar.getTime()));
     }
 
-    /********************************* WEIGHT SELECTOR *********************************/
+    /********************************* WEIGHT SELECTOR ********************************/
 
     private View.OnClickListener openWeightSelector = new View.OnClickListener () {
 
