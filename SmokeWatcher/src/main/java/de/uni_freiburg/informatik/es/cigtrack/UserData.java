@@ -2,6 +2,7 @@ package de.uni_freiburg.informatik.es.cigtrack;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -10,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class UserData extends SQLiteOpenHelper {
-
     public static final String DATABASE_NAME = "user_profile.db";
     public static final String TABLE_NAME = "user_table";
     public static final String COL_1 =  "ID";
@@ -47,4 +47,23 @@ public class UserData extends SQLiteOpenHelper {
             return true;
     }
 
+    public Cursor readData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("select * from "+TABLE_NAME, null);
+        return result;
+    }
+
+    public boolean updateData(String id,String name,String birthday,String weight){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1,id);
+        contentValues.put(COL_2,name);
+        contentValues.put(COL_3,birthday);
+        contentValues.put(COL_4,weight);
+        long result =  db.update(TABLE_NAME,contentValues, "ID = ?",new String[]{id});
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
 }

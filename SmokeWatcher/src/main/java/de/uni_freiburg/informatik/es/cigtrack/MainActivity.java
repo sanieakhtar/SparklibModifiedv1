@@ -167,30 +167,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-//    //get the layout ID
-//    RelativeLayout baseLayout = (RelativeLayout)findViewById(R.id.base);
-//
-//    //first scene
-//    ViewGroup startViews = (ViewGroup)getLayoutInflater()
-//            .inflate(R.layout.opening, baseLayout, false);
-//
-//    //second scene
-//    ViewGroup endViews = (ViewGroup)getLayoutInflater()
-//            .inflate(R.layout.activity_main, baseLayout, false);
-//
-//    //create the two scenes
-//
-//    scene1 = new Scene (baseLayout, startViews);
-//
-//    public void setScene1(Scene scene1) {
-//        this.scene1 = scene1;
-//    }
-//
-//    @Override
-//    public Scene (ViewGroup sceneRoot) {
-//        return super.Scene(opening);
-//    }
-//
-//    scene2 = new Scene(baseLayout, endViews);
 }
