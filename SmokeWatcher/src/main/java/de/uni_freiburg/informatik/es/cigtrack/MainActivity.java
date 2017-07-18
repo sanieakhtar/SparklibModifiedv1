@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         mSpark = new Spark(this, mSparkCalls);
 
         Intent intro = new Intent(this, IntroActivity.class);
+
         startActivity(intro);
 
         Intent dataCol = new Intent(this, MainForm.class);
