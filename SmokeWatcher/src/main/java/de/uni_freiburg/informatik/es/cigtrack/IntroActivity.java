@@ -1,5 +1,6 @@
 package de.uni_freiburg.informatik.es.cigtrack;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,12 +23,8 @@ public class IntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
 
         addSlide(IntroSlide.newInstance(app_intro));
-        addSlide(IntroSlide.newInstance(main_form));
         addSlide(IntroSlide.newInstance(app_intro_2));
         addSlide(IntroSlide.newInstance(app_intro_3));
-//        addSlide(secondFragment);
-//        addSlide(thirdFragment);
-//        addSlide(fourthFragment);
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.

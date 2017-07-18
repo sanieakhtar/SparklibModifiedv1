@@ -49,6 +49,27 @@ public class MainForm extends AppCompatActivity {
         AddData();
     }
 
+    /********************************* FULLSCREEN MODE *********************************/
+    //TODO: make entire layout so that it's fullscreen when it opens and no bar is seen at the top initially
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
     /********************************* ADD DATA TO DB *********************************/
 
     private boolean proceed = false;
@@ -124,7 +145,7 @@ public class MainForm extends AppCompatActivity {
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        dialog.cancel();
+                        dialog.cancel(); // go back to main activity here
                     }
                 });
 

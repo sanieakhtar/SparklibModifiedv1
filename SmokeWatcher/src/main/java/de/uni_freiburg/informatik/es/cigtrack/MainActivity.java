@@ -115,18 +115,18 @@ public class MainActivity extends AppCompatActivity {
         Button AddSmoke = (Button) findViewById(R.id.AddButton);
         AddSmoke.setOnClickListener(mAddEventAction);
 
-//        TextView myTextView = (TextView) findViewById(R.id.appMotto);
-//        Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/MarkerFelt.xml");
-//        myTextView.setTypeface(typeface);
-
-
         mSpark = new Spark(this, mSparkCalls);
 
-        Intent intent = new Intent(this, IntroActivity.class);
-        startActivity(intent);
+        Intent intro = new Intent(this, IntroActivity.class);
+        startActivity(intro);
+
+        Intent dataCol = new Intent(this, MainForm.class);
+        startActivity(dataCol);
 
     }
 
+    // Make window fullscreen when opened
+    //TODO: make entire layout so that it's fullscreen when it opens and no bar is seen at the top initially
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -145,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
