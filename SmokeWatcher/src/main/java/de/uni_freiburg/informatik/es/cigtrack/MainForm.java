@@ -8,7 +8,6 @@ package de.uni_freiburg.informatik.es.cigtrack;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -26,7 +25,7 @@ import java.util.Locale;
 
 public class MainForm extends AppCompatActivity {
     UserData myDb;
-    EditText box_name,box_birth,box_weight;
+    EditText box_name,box_birth,box_weight,box_petname;
     Button buttonAddData;
 
     @Override
@@ -39,6 +38,7 @@ public class MainForm extends AppCompatActivity {
         box_name = (EditText)findViewById(R.id.box_name);
         box_birth = (EditText)findViewById(R.id.box_birth);
         box_weight = (EditText)findViewById(R.id.box_weight);
+        box_petname = (EditText)findViewById(R.id.box_petname);
         buttonAddData = (Button)findViewById(R.id.button_send);
 
         box_birth.setOnClickListener(openCalender);
@@ -81,7 +81,8 @@ public class MainForm extends AppCompatActivity {
                             boolean isInserted = myDb.insertData(
                                     box_name.getText().toString(),
                                     box_birth.getText().toString(),
-                                    box_weight.getText().toString());
+                                    box_weight.getText().toString(),
+                                    box_petname.getText().toString());
                             if (isInserted) {
                                 proceed = true;
                             }
@@ -95,7 +96,8 @@ public class MainForm extends AppCompatActivity {
                                     String.valueOf(1),
                                     box_name.getText().toString(),
                                     box_birth.getText().toString(),
-                                    box_weight.getText().toString());
+                                    box_weight.getText().toString(),
+                                    box_petname.getText().toString());
                             if (isUpdated) {
                                 proceed = true;
                             }
@@ -127,6 +129,7 @@ public class MainForm extends AppCompatActivity {
                 buffer.append("Nme: " + result.getString(1)+"\n");
                 buffer.append("Birthday: " + result.getString(2)+"\n");
                 buffer.append("Weight: " + result.getString(3)+" Kg.\n");
+                buffer.append("Pet Name: " + result.getString(4)+"\n");
             }
             // Show data
             ShowMsg(getString(R.string.form_dialogConfirm),buffer.toString());

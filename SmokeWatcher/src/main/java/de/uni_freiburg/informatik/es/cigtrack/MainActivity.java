@@ -3,6 +3,7 @@ package de.uni_freiburg.informatik.es.cigtrack;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -31,7 +32,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.transition.TransitionManager;
 import android.widget.Toast;
-
+import de.uni_freiburg.informatik.es.cigtrack.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -110,11 +111,21 @@ public class MainActivity extends AppCompatActivity {
                 TextView txt = (TextView) findViewById(R.id.text);
                 txt.setText(msg);
 
+
+
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         }
     };
+
+    public void updatePetName(){
+        UserData u = new UserData(this);
+        String petname = u.readCOL_5Data();
+        TextView txt_head = (TextView) findViewById(R.id.text_header);
+        String message = getResources().getString(R.string.text_petName,petname);
+        txt_head.setText(message);
+    }
 
     public void ingnitionPopup() {
 
@@ -153,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intro = new Intent(this, IntroActivity.class);
 
         startActivity(intro);
-
     }
 
     // Make window fullscreen when opened

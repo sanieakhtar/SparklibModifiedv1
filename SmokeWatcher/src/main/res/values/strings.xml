@@ -23,7 +23,7 @@
     <string name="form_buttonOK">OK</string>
     <string name="form_buttonRead">Read from DB</string>
     <string name="form_dialogConfirm">Please confirm that the data entered is correct:</string>
-    <string name="text_petName">Say hello to ! From now on, your job will be to take care of and you can do that by smoking as little as possible!</string>
+    <string name="text_petName">Say hello to %s !</string>
 
 
     <string name="title_activity_new_pet">NewPetActivity</string>
