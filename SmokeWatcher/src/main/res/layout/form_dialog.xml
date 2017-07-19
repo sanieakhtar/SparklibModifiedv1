@@ -15,11 +15,12 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:text="Set"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/numberPicker1"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="casual"
+        android:text="Set" />
 
     <TextView
         android:id="@+id/textView2"
@@ -27,10 +28,11 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/numberPicker1"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
+        android:fontFamily="casual"
         android:text="KG"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

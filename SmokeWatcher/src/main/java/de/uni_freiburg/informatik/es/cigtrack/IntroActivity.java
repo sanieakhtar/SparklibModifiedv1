@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.github.paolorotolo.appintro.AppIntro;
 
-import static de.uni_freiburg.informatik.es.cigtrack.R.layout.main_form;
 import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro;
 import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro_2;
 import static de.uni_freiburg.informatik.es.cigtrack.R.layout.app_intro_3;
@@ -25,11 +24,12 @@ public class IntroActivity extends AppIntro {
         addSlide(IntroSlide.newInstance(app_intro));
         addSlide(IntroSlide.newInstance(app_intro_2));
         addSlide(IntroSlide.newInstance(app_intro_3));
+//        addSlide(SampleSlide);
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
 
-//        addSlide(AppIntroFragment.newInstance("Slide two", "This is a test", R.drawable.smokewatcherlogosmall, getResources().getColor(R.color.newColorTwo)));
+//        addSlide(AppIntroFragment.SampleSlide("Slide two", "This is a test", R.drawable.smokewatcherlogosmall, getResources().getColor(R.color.newColorTwo)));
 
 //        // OPTIONAL METHODS
 //        // Override bar/separator color.
@@ -75,6 +75,12 @@ public class IntroActivity extends AppIntro {
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         // Do something when users tap on Done button.
+        Intent datacol = new Intent(this, MainForm.class);
+        startActivity(datacol);
+
+        Intent newPet = new Intent(this, NewPetActivity.class);
+        startActivity(newPet);
+
         finish();
     }
 

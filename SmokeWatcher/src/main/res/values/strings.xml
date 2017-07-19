@@ -15,28 +15,19 @@
     <string name="app_intro4">And he is going to be happy when you don\'t smoke!</string>
 
     <!-- Strings used in the formular -->
-    <string name="form_name">Name</string>
-    <string name="form_dob">DD/MM/YYYY</string>
-    <string name="form_weight">Weight</string>
-    <string name="form_header">Before you adopt your new pet, we need to know a bit about you:</string>
+    <string name="form_name">Your Name</string>
+    <string name="form_dob">Your Birthday</string>
+    <string name="form_weight">Your Weight</string>
+    <string name="pet_name">Your Pet\'s Name</string>
+    <string name="form_header">Before you adopt your new pet, we will need some information!</string>
     <string name="form_buttonOK">OK</string>
     <string name="form_buttonRead">Read from DB</string>
     <string name="form_dialogConfirm">Please confirm that the data entered is correct:</string>
+    <string name="text_petName">Say hello to ! From now on, your job will be to take care of and you can do that by smoking as little as possible!</string>
 
 
-    <string name="title_activity_login">Sign in</string>
-
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="title_activity_new_pet">NewPetActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

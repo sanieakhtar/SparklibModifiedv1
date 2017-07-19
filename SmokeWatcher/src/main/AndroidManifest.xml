@@ -25,6 +25,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".IntroActivity" />
+        <activity android:name=".MainForm" />
+        <activity
+            android:name=".NewPetActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_new_pet"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +28,6 @@ public class MainForm extends AppCompatActivity {
     UserData myDb;
     EditText box_name,box_birth,box_weight;
     Button buttonAddData;
-    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +143,7 @@ public class MainForm extends AppCompatActivity {
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        dialog.cancel(); // go back to main activity here
+                        finish();
                     }
                 });
 
@@ -204,7 +202,7 @@ public class MainForm extends AppCompatActivity {
 
             final Dialog d = new Dialog(MainForm.this);
             d.setTitle("NumberPicker");
-            d.setContentView(R.layout.dialog);
+            d.setContentView(R.layout.form_dialog);
             Button b1 = (Button) d.findViewById(R.id.button1);
             final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
             np.setMaxValue(130);
