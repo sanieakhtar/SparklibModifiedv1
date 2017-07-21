@@ -1,17 +1,24 @@
 package de.uni_freiburg.informatik.es.cigtrack;
 
 
+import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import java.util.List;
 
 import eu.senseable.sparklib.Spark;
 
 
 public class NewPetActivity extends AppCompatActivity {
+    UserData myDb;
+    String nameofPet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +28,35 @@ public class NewPetActivity extends AppCompatActivity {
 
         Button PetConfirm = (Button) findViewById(R.id.petConfirm);
         PetConfirm.setOnClickListener(mConfirmPet);
+
+        myDb = new UserData(this);
+        Cursor result = myDb.readData();
+        result.moveToFirst();
+        nameofPet = result.getString(4).toString();
+
+//        EditText box_name = (EditText) findViewById(R.id.box_name);
+//        String message = box_name.getText().toString();
+
+        String msg = getResources().getString(R.string.text_petName, nameofPet, nameofPet);
+        TextView txt = (TextView) findViewById(R.id.petIntro);
+        txt.setText(msg);
+
+
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
-
-    private View.OnClickListener mConfirmPet = new View.OnClickListener() {
+    private View.OnClickListener mConfirmPet = new View.OnClickListener() { //can't delete this!
         @Override
         public void onClick(View v) {
             finish();
@@ -32,7 +64,7 @@ public class NewPetActivity extends AppCompatActivity {
     };
 }
 
-
+//code for fullscreen activity:
 
 
 //import android.annotation.SuppressLint;
@@ -42,6 +74,7 @@ public class NewPetActivity extends AppCompatActivity {
 //import android.os.Handler;
 //import android.view.MotionEvent;
 //import android.view.View;
+//import android.widget.Button;
 //
 ///**
 // * An example full-screen activity that shows and hides the system UI (i.e.
@@ -122,11 +155,10 @@ public class NewPetActivity extends AppCompatActivity {
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //
-//        setContentView(R.layout.activity_new_pet);
-//
 //        mVisible = true;
-////        mControlsView = findViewById(R.id.fullscreen_content_controls);
-////        mContentView = findViewById(R.id.activity_new_pet);
+////        mControlsView = findViewById(R.id.newpet)
+//        mControlsView = findViewById(R.id.newpet);
+//        mContentView = findViewById(R.id.newpet);
 //
 //
 //        // Set up the user interaction to manually show or hide the system UI.
@@ -137,11 +169,23 @@ public class NewPetActivity extends AppCompatActivity {
 //            }
 //        });
 //
+//        setContentView(R.layout.activity_new_pet);
+//
+//        Button PetConfirm = (Button) findViewById(R.id.petConfirm);
+//        PetConfirm.setOnClickListener(mConfirmPet);
+//
 //        // Upon interacting with UI controls, delay any scheduled hide()
 //        // operations to prevent the jarring behavior of controls going away
 //        // while interacting with the UI.
 //
 //    }
+//
+//    private View.OnClickListener mConfirmPet = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            finish();
+//        }
+//    };
 //
 //    @Override
 //    protected void onPostCreate(Bundle savedInstanceState) {

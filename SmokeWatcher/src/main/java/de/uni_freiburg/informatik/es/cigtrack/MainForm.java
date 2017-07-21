@@ -5,9 +5,11 @@ package de.uni_freiburg.informatik.es.cigtrack;
  * This file contains the Registration Formular activity.
  */
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import de.uni_freiburg.informatik.es.cigtrack.NewPetActivity;
 
 public class MainForm extends AppCompatActivity {
     UserData myDb;
@@ -126,7 +129,7 @@ public class MainForm extends AppCompatActivity {
         else {
             StringBuffer buffer = new StringBuffer();
             while(result.moveToNext()) {
-                buffer.append("Nme: " + result.getString(1)+"\n");
+                buffer.append("Name: " + result.getString(1)+"\n");
                 buffer.append("Birthday: " + result.getString(2)+"\n");
                 buffer.append("Weight: " + result.getString(3)+" Kg.\n");
                 buffer.append("Pet Name: " + result.getString(4)+"\n");
@@ -142,10 +145,11 @@ public class MainForm extends AppCompatActivity {
         alert_confirm.setTitle(title);
         alert_confirm.setMessage(data);
         alert_confirm.setPositiveButton("Accept",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        Intent newPet = new Intent(MainForm.this, NewPetActivity.class);
+                        startActivity(newPet);
                         finish();
                     }
                 });

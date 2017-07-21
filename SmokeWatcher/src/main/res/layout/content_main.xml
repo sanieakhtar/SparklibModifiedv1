@@ -48,7 +48,7 @@
         tools:layout_constraintTop_creator="1" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageMain"
         android:layout_width="212dp"
         android:layout_height="170dp"
         app:layout_constraintBottom_toBottomOf="parent"

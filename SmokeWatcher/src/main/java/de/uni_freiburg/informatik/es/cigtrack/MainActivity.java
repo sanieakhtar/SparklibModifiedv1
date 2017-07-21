@@ -20,18 +20,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v4.view.ViewPager.DecorView;
 
-import android.transition.AutoTransition;
-import android.transition.Scene;
-import android.transition.Transition;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.RelativeLayout;
-import android.transition.TransitionManager;
-import android.widget.Toast;
 import de.uni_freiburg.informatik.es.cigtrack.UserData;
 
 import java.text.SimpleDateFormat;
@@ -40,7 +32,53 @@ import java.util.List;
 import java.util.Locale;
 
 import eu.senseable.sparklib.Spark;
+
+import static de.uni_freiburg.informatik.es.cigtrack.R.drawable.foxyemoji2;
+
 public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Button RemoveSmoke = (Button) findViewById(R.id.RemoveButton);
+        RemoveSmoke.setOnClickListener(mRemoveEventAction);
+
+        Button AddSmoke = (Button) findViewById(R.id.AddButton);
+        AddSmoke.setOnClickListener(mAddEventAction);
+
+        mSpark = new Spark(this, mSparkCalls);
+
+        Intent intro = new Intent(this, IntroActivity.class);
+        startActivity(intro);
+
+        updatePetName();
+
+    }
+
+    // Make window fullscreen when opened
+    //TODO: make entire layout so that it's fullscreen when it opens and no bar is seen at the top initially
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
 
     public Spark mSpark = null;
     public int last_numcigs = 0;
@@ -123,8 +161,14 @@ public class MainActivity extends AppCompatActivity {
         UserData u = new UserData(this);
         String petname = u.readCOL_5Data();
         TextView txt_head = (TextView) findViewById(R.id.text_header);
-        String message = getResources().getString(R.string.text_petName,petname);
+        String message = getResources().getString(R.string.text_petName,petname,petname);
         txt_head.setText(message);
+
+        String imageName = "foxyemoji2";
+
+//        ImageView mainImage = (ImageView) findViewById(R.id.imageMain);
+//        mainImage.setImageDrawable(foxyemoji2);
+
     }
 
     public void ingnitionPopup() {
@@ -144,50 +188,6 @@ public class MainActivity extends AppCompatActivity {
         dialog_popup.show();
 
     }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        Button RemoveSmoke = (Button) findViewById(R.id.RemoveButton);
-        RemoveSmoke.setOnClickListener(mRemoveEventAction);
-
-        Button AddSmoke = (Button) findViewById(R.id.AddButton);
-        AddSmoke.setOnClickListener(mAddEventAction);
-
-        mSpark = new Spark(this, mSparkCalls);
-
-        Intent intro = new Intent(this, IntroActivity.class);
-
-        startActivity(intro);
-    }
-
-    // Make window fullscreen when opened
-    //TODO: make entire layout so that it's fullscreen when it opens and no bar is seen at the top initially
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
-        decorView.setSystemUiVisibility(uiOptions);
-
-        if (hasFocus) {
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
-    }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_launchspark) {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("eu.senseable.companion");
             if (launchIntent != null) {
-                startActivity(launchIntent);//null pointer check in case package name was not found
+                startActivity(launchIntent); //null pointer check in case package name was not found
             }
             return true;
         }
