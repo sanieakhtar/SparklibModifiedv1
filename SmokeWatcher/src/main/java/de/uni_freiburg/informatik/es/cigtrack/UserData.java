@@ -18,6 +18,7 @@ public class UserData extends SQLiteOpenHelper {
     public static final String COL_3 =  "BIRTHDAY";
     public static final String COL_4 =  "WEIGHT";
     public static final String COL_5 =  "PET_NAME";
+    public static final String COL_6 =  "AVG_CIGS";
 
 
     public UserData(Context context) {
@@ -27,22 +28,22 @@ public class UserData extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        db.execSQL("Create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, BIRTHDAY TEXT, WEIGHT TEXT, PET_NAME TEXT)");
+        db.execSQL("Create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, BIRTHDAY TEXT, WEIGHT TEXT, PET_NAME TEXT, AVG_CIGS TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-    public boolean insertData(String name,String birthday,String weight,String pet_name){
+    public boolean insertData(String name,String birthday,String weight,String pet_name,String avg_cigs){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,name);
         contentValues.put(COL_3,birthday);
         contentValues.put(COL_4,weight);
         contentValues.put(COL_5,pet_name);
+        contentValues.put(COL_6,avg_cigs);
         long result =  db.insert(TABLE_NAME,null,contentValues);
         if(result == -1)
             return false;
@@ -92,7 +93,7 @@ public class UserData extends SQLiteOpenHelper {
 
 
 
-    public boolean updateData(String id,String name,String birthday,String weight,String pet_name){
+    public boolean updateData(String id,String name,String birthday,String weight,String pet_name,String avg_cigs){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,id);
@@ -100,6 +101,7 @@ public class UserData extends SQLiteOpenHelper {
         contentValues.put(COL_3,birthday);
         contentValues.put(COL_4,weight);
         contentValues.put(COL_5,pet_name);
+        contentValues.put(COL_6,avg_cigs);
         long result =  db.update(TABLE_NAME,contentValues, "ID = ?",new String[]{id});
         if(result == -1)
             return false;

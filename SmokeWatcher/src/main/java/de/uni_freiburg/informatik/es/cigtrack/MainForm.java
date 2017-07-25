@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,7 +29,7 @@ import de.uni_freiburg.informatik.es.cigtrack.NewPetActivity;
 
 public class MainForm extends AppCompatActivity {
     UserData myDb;
-    EditText box_name,box_birth,box_weight,box_petname;
+    EditText box_name,box_birth,box_weight,box_petname,box_avgcigs;
     Button buttonAddData;
 
     @Override
@@ -42,9 +43,11 @@ public class MainForm extends AppCompatActivity {
         box_birth = (EditText)findViewById(R.id.box_birth);
         box_weight = (EditText)findViewById(R.id.box_weight);
         box_petname = (EditText)findViewById(R.id.box_petname);
+        box_avgcigs = (EditText)findViewById(R.id.box_avgcigs);
         buttonAddData = (Button)findViewById(R.id.button_send);
 
         box_birth.setOnClickListener(openCalender);
+        //box_weight.setInputType(InputType.TYPE_NULL);
         box_weight.setOnClickListener(openWeightSelector);
 
         AddData();
@@ -85,7 +88,8 @@ public class MainForm extends AppCompatActivity {
                                     box_name.getText().toString(),
                                     box_birth.getText().toString(),
                                     box_weight.getText().toString(),
-                                    box_petname.getText().toString());
+                                    box_petname.getText().toString(),
+                                    box_avgcigs.getText().toString());
                             if (isInserted) {
                                 proceed = true;
                             }
@@ -100,7 +104,8 @@ public class MainForm extends AppCompatActivity {
                                     box_name.getText().toString(),
                                     box_birth.getText().toString(),
                                     box_weight.getText().toString(),
-                                    box_petname.getText().toString());
+                                    box_petname.getText().toString(),
+                                    box_avgcigs.getText().toString());
                             if (isUpdated) {
                                 proceed = true;
                             }
@@ -133,6 +138,7 @@ public class MainForm extends AppCompatActivity {
                 buffer.append("Your Pet\'s Name: " + result.getString(4)+"\n");
                 buffer.append("Your Birthday: " + result.getString(2)+"\n");
                 buffer.append("Your Weight: " + result.getString(3)+" kg\n");
+                buffer.append("Daily Cigarettes (Average): " + result.getString(5)+"\n");
             }
             // Show data
             ShowMsg(getString(R.string.form_dialogConfirm),buffer.toString());
@@ -206,7 +212,6 @@ public class MainForm extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-
             final Dialog d = new Dialog(MainForm.this);
             d.setTitle("NumberPicker");
             d.setContentView(R.layout.form_dialog);

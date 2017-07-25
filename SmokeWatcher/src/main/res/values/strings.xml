@@ -14,7 +14,7 @@
     <string name="app_intro3">All you have to do is keep him happy..</string>
     <string name="app_intro4">And he is going to be happy when you don\'t smoke!</string>
     <string name="app_main">Hello %1$s! %2$s looks happy today!</string>
-    <string name="stop_smoke">YOU SHOULD STOP SMOKING!!</string>
+    <string name="stop_smoke">Please stop smoking :(</string>
 
     <!-- Strings used in the form -->
     <string name="form_name">Your Name</string>
@@ -22,12 +22,14 @@
     <string name="form_weight">Your Weight</string>
     <string name="pet_name">Your Pet\'s Name</string>
     <string name="form_header">Before you adopt your new pet, we will need some information!</string>
+    <string name="form_txtavgcigs">To help you and your pet with this challenge, we need to know an average number of cigarettes you smoke per day:</string>
+    <string name="form_avgcigs">Average Cigarettes/Day</string>
+
     <string name="form_buttonOK">OK</string>
     <string name="form_buttonRead">Read from DB</string>
     <string name="form_dialogConfirm">Please confirm that the data entered is correct:</string>
 
     <string name="text_petName">Say hello to %1$s ! From now on, your job will be to keep %2$s happy and healthy and you can do that by smoking as little as possible!</string>
-
 
     <string name="title_activity_new_pet">NewPetActivity</string>
     <string name="dummy_button">Dummy Button</string>
