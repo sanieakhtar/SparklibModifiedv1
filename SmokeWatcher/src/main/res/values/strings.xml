@@ -13,8 +13,9 @@
     <string name="app_intro2">And he is going to help you stop smoking!</string>
     <string name="app_intro3">All you have to do is keep him happy..</string>
     <string name="app_intro4">And he is going to be happy when you don\'t smoke!</string>
+    <string name="stop_smoke">YOU SHOULD STOP SMOKING!!</string>
 
-    <!-- Strings used in the formular -->
+    <!-- Strings used in the form -->
     <string name="form_name">Your Name</string>
     <string name="form_dob">Your Birthday</string>
     <string name="form_weight">Your Weight</string>

@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             last_numcigs = numcigs;
+            updateImage(last_numcigs);
         }
     };
 
@@ -163,12 +164,13 @@ public class MainActivity extends AppCompatActivity {
         TextView txt_head = (TextView) findViewById(R.id.text_header);
         String message = getResources().getString(R.string.text_petName,petname,petname);
         txt_head.setText(message);
+    }
 
-        String imageName = "foxyemoji2";
-
-//        ImageView mainImage = (ImageView) findViewById(R.id.imageMain);
-//        mainImage.setImageDrawable(foxyemoji2);
-
+    public void updateImage(int cigCheck){
+        if (cigCheck > 5) {
+            ImageView mainImage = (ImageView) findViewById(R.id.imageMain);
+            mainImage.setImageResource(foxyemoji2);
+        }
     }
 
     public void ingnitionPopup() {
