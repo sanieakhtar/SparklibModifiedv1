@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             ///// TODO: last_numcigs should be read from the DB and not from the callback function of
             ///// TODO: event creation. Maybe move this to another function?
 
-            if (numcigs > last_numcigs) {
+            if (numcigs > last_numcigs && last_numcigs != 0) {
                 ingnitionPopup();
             }
 
