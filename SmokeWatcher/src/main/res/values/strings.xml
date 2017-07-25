@@ -9,10 +9,11 @@
         <item quantity="one"> You have smoked %d cigarette today!</item>
         <item quantity="other">You have smoked %d cigarettes today!</item>
     </plurals>
-    <string name="app_intro">This is Smokey, your pet puppy!</string>
+    <string name="app_intro">This is Smokey, your very own pet fox!</string>
     <string name="app_intro2">And he is going to help you stop smoking!</string>
     <string name="app_intro3">All you have to do is keep him happy..</string>
     <string name="app_intro4">And he is going to be happy when you don\'t smoke!</string>
+    <string name="app_main">Hello %1$s! %2$s looks happy today!</string>
     <string name="stop_smoke">YOU SHOULD STOP SMOKING!!</string>
 
     <!-- Strings used in the form -->
@@ -24,6 +25,7 @@
     <string name="form_buttonOK">OK</string>
     <string name="form_buttonRead">Read from DB</string>
     <string name="form_dialogConfirm">Please confirm that the data entered is correct:</string>
+
     <string name="text_petName">Say hello to %1$s ! From now on, your job will be to keep %2$s happy and healthy and you can do that by smoking as little as possible!</string>
 
 

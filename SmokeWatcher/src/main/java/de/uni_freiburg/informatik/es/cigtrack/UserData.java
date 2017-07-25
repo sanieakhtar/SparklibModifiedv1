@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class UserData extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "new_user_profile.db";
+    public static final String DATABASE_NAME = "user_profile.db";
     public static final String TABLE_NAME = "user_table";
     public static final String COL_1 =  "ID";
     public static final String COL_2 =  "NAME";
@@ -26,6 +26,7 @@ public class UserData extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("Create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, BIRTHDAY TEXT, WEIGHT TEXT, PET_NAME TEXT)");
     }
 
@@ -55,20 +56,41 @@ public class UserData extends SQLiteOpenHelper {
         return result;
     }
 
-    public String readCOL_5Data(){
+    public String readPetname(){
         String petname;
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("select * from "+TABLE_NAME, null);
         if(result.getCount()<1){
             result.close();
             petname = "Not Found";
             return petname;
         }
+
         result.moveToFirst();
         petname = result.getString(result.getColumnIndex(COL_5));
         result.close();
+
         return petname;
     }
+
+    public String readUsername(){
+        String petname, username;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("select * from "+TABLE_NAME, null);
+        if(result.getCount()<1){
+            result.close();
+            petname = "Not Found";
+            return petname;
+        }
+
+        result.moveToFirst();
+        username = result.getString(result.getColumnIndex(COL_2));
+        result.close();
+
+        return username;
+    }
+
+
 
     public boolean updateData(String id,String name,String birthday,String weight,String pet_name){
         SQLiteDatabase db = this.getWritableDatabase();

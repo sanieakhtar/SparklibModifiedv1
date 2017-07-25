@@ -3,28 +3,17 @@ package de.uni_freiburg.informatik.es.cigtrack;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v4.view.ViewPager.DecorView;
-
-import de.uni_freiburg.informatik.es.cigtrack.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +23,7 @@ import java.util.Locale;
 import eu.senseable.sparklib.Spark;
 
 import static de.uni_freiburg.informatik.es.cigtrack.R.drawable.foxyemoji2;
+import static de.uni_freiburg.informatik.es.cigtrack.R.drawable.foxyemoji31;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intro = new Intent(this, IntroActivity.class);
         startActivity(intro);
 
-        updatePetName();
+        updateWelcome();
 
     }
 
@@ -81,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Spark mSpark = null;
-    public int last_numcigs = 0;
+    public int last_numcigs;
 
     public Spark.Callbacks mSparkCalls = new Spark.Callbacks.Stub() {
         @Override
@@ -90,12 +80,15 @@ public class MainActivity extends AppCompatActivity {
 
             int numcigs = events.size();
             String msg = getResources().getQuantityString(R.plurals.numcigs, numcigs, numcigs);
-            TextView txt = (TextView) findViewById(R.id.text);
+            TextView txt = (TextView) findViewById(R.id.cigText);
             txt.setText(msg);
 
             /*
             * Generate a Pup-up Dialog to disturb the user.
             */
+
+            ///// TODO: last_numcigs should be read from the DB and not from the callback function of
+            ///// TODO: event creation. Maybe move this to another function?
 
             if (numcigs > last_numcigs) {
                 ingnitionPopup();
@@ -147,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int numcigsnew = evs.size();
                 String msg = getResources().getQuantityString(R.plurals.numcigs, numcigsnew, numcigsnew);
-                TextView txt = (TextView) findViewById(R.id.text);
+                TextView txt = (TextView) findViewById(R.id.cigText);
                 txt.setText(msg);
 
 
@@ -158,19 +151,34 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void updatePetName(){
+    public String updatePetName(){
         UserData u = new UserData(this);
-        String petname = u.readCOL_5Data();
-        TextView txt_head = (TextView) findViewById(R.id.text_header);
-        String message = getResources().getString(R.string.text_petName,petname,petname);
+        String petname = u.readPetname();
+        return petname;
+    }
+
+    public String updateUserName(){
+        UserData u = new UserData(this);
+        String username = u.readUsername();
+        return username;
+    }
+
+    public void updateWelcome(){
+        String username = updateUserName();
+        String petname = updatePetName();
+
+        TextView txt_head = (TextView) findViewById(R.id.headerText);
+        String message = getResources().getString(R.string.app_main,username,petname);
         txt_head.setText(message);
     }
 
     public void updateImage(int cigCheck){
+        ImageView mainImage = (ImageView) findViewById(R.id.imageMain);
         if (cigCheck > 5) {
-            ImageView mainImage = (ImageView) findViewById(R.id.imageMain);
-            mainImage.setImageResource(foxyemoji2);
+            mainImage.setImageResource(foxyemoji31);
         }
+        else
+            mainImage.setImageResource(foxyemoji2);
     }
 
     public void ingnitionPopup() {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFBF00</color>
+    <color name="colorPrimary">#ffbf00</color>
     <color name="colorPrimaryDark">#FFBF00</color>
     <color name="colorAccent">#d91256</color>
     <color name="appTitle">#4b0e00</color>
-    <color name="black_overlay">#66000000</color>
+    <color name="black">#000000</color>
 </resources>

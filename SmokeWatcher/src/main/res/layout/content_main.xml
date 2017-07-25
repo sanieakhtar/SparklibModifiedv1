@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,27 +11,29 @@
 
 
     <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
+        android:id="@+id/headerText"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
         android:text="Hello World!"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@color/appTitle"
-        android:textSize="32sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.565"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="25dp"
-        tools:layout_constraintLeft_creator="1" />
+        app:layout_constraintVertical_bias="0.124"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <TextView
-        android:id="@+id/text_header"
-        android:layout_width="wrap_content"
+        android:id="@+id/cigText"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="Hello World!"
@@ -40,27 +43,44 @@
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138"
+        app:layout_constraintVertical_bias="0.688"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
     <ImageView
         android:id="@+id/imageMain"
-        android:layout_width="212dp"
-        android:layout_height="170dp"
+        android:layout_width="187dp"
+        android:layout_height="143dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.335"
-        app:srcCompat="@drawable/dogcuteface"
+        app:layout_constraintVertical_bias="0.473"
+        app:srcCompat="@drawable/foxyemoji2"
         tools:layout_conversion_absoluteX="66dp"
         tools:layout_conversion_absoluteY="75dp"
         tools:layout_conversion_absoluteWidth="212dp"
         tools:layout_conversion_absoluteHeight="170dp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>

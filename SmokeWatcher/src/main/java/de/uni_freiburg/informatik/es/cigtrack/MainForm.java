@@ -129,10 +129,10 @@ public class MainForm extends AppCompatActivity {
         else {
             StringBuffer buffer = new StringBuffer();
             while(result.moveToNext()) {
-                buffer.append("Name: " + result.getString(1)+"\n");
-                buffer.append("Birthday: " + result.getString(2)+"\n");
-                buffer.append("Weight: " + result.getString(3)+" Kg.\n");
-                buffer.append("Pet Name: " + result.getString(4)+"\n");
+                buffer.append("Your Name: " + result.getString(1)+"\n");
+                buffer.append("Your Pet\'s Name: " + result.getString(4)+"\n");
+                buffer.append("Your Birthday: " + result.getString(2)+"\n");
+                buffer.append("Your Weight: " + result.getString(3)+" kg\n");
             }
             // Show data
             ShowMsg(getString(R.string.form_dialogConfirm),buffer.toString());
