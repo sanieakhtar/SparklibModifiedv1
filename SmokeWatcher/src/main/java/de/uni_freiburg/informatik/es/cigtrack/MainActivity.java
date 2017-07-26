@@ -3,6 +3,7 @@ package de.uni_freiburg.informatik.es.cigtrack;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -28,11 +29,13 @@ import static de.uni_freiburg.informatik.es.cigtrack.R.drawable.foxyemoji31;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences prefs = null;
     UserData myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,12 +46,11 @@ public class MainActivity extends AppCompatActivity {
         Button AddSmoke = (Button) findViewById(R.id.AddButton);
         AddSmoke.setOnClickListener(mAddEventAction);
 
-        mSpark = new Spark(this, mSparkCalls);
-
         Intent intro = new Intent(this, IntroActivity.class);
         startActivity(intro);
-
         updateWelcome();
+
+        mSpark = new Spark(this, mSparkCalls);
     }
 
     @Override
@@ -86,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         public void onEventsChanged(List<Spark.Event> events) {
             super.onEventsChanged(events);
 
+            prefs = getSharedPreferences("de.uni_freiburg.informatik.es.cigtrack", MODE_PRIVATE);
+
             int numcigs = events.size();
             String msg = getResources().getQuantityString(R.plurals.numcigs, numcigs, numcigs);
             TextView txt = (TextView) findViewById(R.id.cigText);
@@ -102,8 +106,15 @@ public class MainActivity extends AppCompatActivity {
                 ingnitionPopup();
             }
 
-            last_numcigs = numcigs;
-            updateImage(last_numcigs);
+            if (prefs.getBoolean("firstrun", true)) {
+                // Do first run stuff here then set 'firstrun' as false
+                // using the following line to edit/commit prefs
+                prefs.edit().putBoolean("firstrun", false).commit();
+            }
+            else {
+                last_numcigs = numcigs;
+                updateImage(last_numcigs);
+            }
         }
     };
 

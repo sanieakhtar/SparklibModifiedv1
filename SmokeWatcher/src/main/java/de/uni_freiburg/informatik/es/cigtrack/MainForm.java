@@ -31,6 +31,7 @@ public class MainForm extends AppCompatActivity {
     UserData myDb;
     EditText box_name,box_birth,box_weight,box_petname,box_avgcigs;
     Button buttonAddData;
+    boolean boDataBaseExist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +162,7 @@ public class MainForm extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        boDataBaseExist = true;
                         Intent newPet = new Intent(MainForm.this, NewPetActivity.class);
                         startActivity(newPet);
                         finish();
