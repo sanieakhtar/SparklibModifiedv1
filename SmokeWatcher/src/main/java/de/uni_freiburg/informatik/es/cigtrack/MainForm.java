@@ -82,6 +82,8 @@ public class MainForm extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String str_avgcigs = box_avgcigs.getText().toString();
+                        int avgcigs = Integer.parseInt(str_avgcigs);
                         Cursor result = myDb.readData();
                         if(result.getCount() == 0){
                             boolean isInserted = myDb.insertData(
@@ -89,7 +91,7 @@ public class MainForm extends AppCompatActivity {
                                     box_birth.getText().toString(),
                                     box_weight.getText().toString(),
                                     box_petname.getText().toString(),
-                                    box_avgcigs.getText().toString());
+                                    avgcigs);
                             if (isInserted) {
                                 proceed = true;
                             }
@@ -105,7 +107,7 @@ public class MainForm extends AppCompatActivity {
                                     box_birth.getText().toString(),
                                     box_weight.getText().toString(),
                                     box_petname.getText().toString(),
-                                    box_avgcigs.getText().toString());
+                                    avgcigs);
                             if (isUpdated) {
                                 proceed = true;
                             }

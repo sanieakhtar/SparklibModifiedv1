@@ -3,6 +3,7 @@ package de.uni_freiburg.informatik.es.cigtrack;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,8 @@ import static de.uni_freiburg.informatik.es.cigtrack.R.drawable.foxyemoji2;
 import static de.uni_freiburg.informatik.es.cigtrack.R.drawable.foxyemoji31;
 
 public class MainActivity extends AppCompatActivity {
+
+    UserData myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,8 +177,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateImage(int cigCheck){
         ImageView mainImage = (ImageView) findViewById(R.id.imageMain);
-        if (cigCheck > 5) {
-            mainImage.setImageResource(foxyemoji31);
+        myDb = new UserData(this);
+        Cursor result = myDb.readData();
+        result.moveToFirst();
+        int avgcigs = result.getInt(5);
+        if(avgcigs > 0) {
+            if (cigCheck > avgcigs) {
+                mainImage.setImageResource(foxyemoji31);
+            } else
+                mainImage.setImageResource(foxyemoji2);
         }
         else
             mainImage.setImageResource(foxyemoji2);

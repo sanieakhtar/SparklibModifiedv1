@@ -36,7 +36,7 @@ public class UserData extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String name,String birthday,String weight,String pet_name,String avg_cigs){
+    public boolean insertData(String name,String birthday,String weight,String pet_name,int avg_cigs){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,name);
@@ -93,7 +93,7 @@ public class UserData extends SQLiteOpenHelper {
 
 
 
-    public boolean updateData(String id,String name,String birthday,String weight,String pet_name,String avg_cigs){
+    public boolean updateData(String id,String name,String birthday,String weight,String pet_name,int avg_cigs){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,id);
