@@ -20,7 +20,6 @@ public class UserData extends SQLiteOpenHelper {
     public static final String COL_5 =  "PET_NAME";
     public static final String COL_6 =  "AVG_CIGS";
 
-
     public UserData(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -90,8 +89,6 @@ public class UserData extends SQLiteOpenHelper {
 
         return username;
     }
-
-
 
     public boolean updateData(String id,String name,String birthday,String weight,String pet_name,int avg_cigs){
         SQLiteDatabase db = this.getWritableDatabase();

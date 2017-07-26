@@ -49,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intro);
 
         updateWelcome();
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateWelcome();
     }
 
     // Make window fullscreen when opened
@@ -124,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 List<Spark.Event> evs = mSpark.getEvents();
 
-
                 int numcigs = evs.size();
                 //Spark.Event e = evs.get(0);
                 //evs.add(numcigs,e);
@@ -145,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 String msg = getResources().getQuantityString(R.plurals.numcigs, numcigsnew, numcigsnew);
                 TextView txt = (TextView) findViewById(R.id.cigText);
                 txt.setText(msg);
-
-
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -203,9 +205,17 @@ public class MainActivity extends AppCompatActivity {
         dialog_popup.setContentView(R.layout.dialog_smokedetected);
         View v = getWindow().getDecorView();
         v.setBackgroundResource(android.R.color.transparent);
-        // TextView tv_pup = (TextView) dialog_popup.findViewById(R.id.textView_ignitepup);
-        // tv_pup.setText("You should stop smoking");
         dialog_popup.show();
+
+    }
+
+    public void resumePopup() {
+
+        /*
+        * Generate a Pup-up Dialog to show time since last cigarette.
+        */
+
+        // List<Spark.Event> evs = mSpark.getEvents();
 
     }
 
