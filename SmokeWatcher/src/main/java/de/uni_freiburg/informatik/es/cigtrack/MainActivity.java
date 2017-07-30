@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +30,9 @@ import static de.uni_freiburg.informatik.es.cigtrack.R.drawable.foxyemoji31;
 
 public class MainActivity extends AppCompatActivity {
 
+    public Spark mSpark = null;
+    public int last_numcigs;
+    public Calendar last_eventtime = Calendar.getInstance();
     SharedPreferences prefs = null;
     UserData myDb;
 
@@ -56,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        updateWelcome();
-    }
 
-    // Make window fullscreen when opened
-    //TODO: make entire layout so that it's fullscreen when it opens and no bar is seen at the top initially
+            updateWelcome();
+            resumePopup();
+
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -80,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public Spark mSpark = null;
-    public int last_numcigs;
-
     public Spark.Callbacks mSparkCalls = new Spark.Callbacks.Stub() {
         @Override
         public void onEventsChanged(List<Spark.Event> events) {
@@ -95,12 +96,11 @@ public class MainActivity extends AppCompatActivity {
             TextView txt = (TextView) findViewById(R.id.cigText);
             txt.setText(msg);
 
+            last_eventtime = Calendar.getInstance();
+
             /*
             * Generate a Pup-up Dialog to disturb the user.
             */
-
-            ///// TODO: last_numcigs should be read from the DB and not from the callback function of
-            ///// TODO: event creation. Maybe move this to another function?
 
             if (numcigs > last_numcigs && last_numcigs != 0) {
                 ingnitionPopup();
@@ -141,18 +141,13 @@ public class MainActivity extends AppCompatActivity {
                 List<Spark.Event> evs = mSpark.getEvents();
 
                 int numcigs = evs.size();
-                //Spark.Event e = evs.get(0);
-                //evs.add(numcigs,e);
-                //mSpark.setEvents(evs);
 
-                ////////////////////////////////////////////////////////////////////////////////////
                 final Context context = getApplicationContext();
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.GERMANY);
                 Date date = new Date();
                 String time = sdf.format(date);
                 Spark.Event ee = new Spark(context, mSparkCalls).new Event(time);
-                // Spark.Event p = new Spark.Event(time);
                 evs.add(numcigs,ee);
                 mSpark.setEvents(evs);
 
@@ -222,11 +217,172 @@ public class MainActivity extends AppCompatActivity {
 
     public void resumePopup() {
 
+        Calendar cal = Calendar.getInstance();
+
+        long diff = cal.getTimeInMillis() - last_eventtime.getTimeInMillis();
+        long diffInSec = diff/1000;
+        diffInSec/= 60;
+        long minutes =diffInSec % 60;
+        diffInSec /= 60;
+        long hours = diffInSec % 24;
+        diffInSec /= 24;
+        long days = diffInSec;
+
+        String smins = String.valueOf(minutes);
+        String shours = String.valueOf(hours);
+        String sdays = String.valueOf(days);
+
         /*
         * Generate a Pup-up Dialog to show time since last cigarette.
         */
 
-        // List<Spark.Event> evs = mSpark.getEvents();
+        UserData u = new UserData(this);
+        String username = u.readUsername();
+
+        final Dialog dialog_resume = new Dialog(MainActivity.this);
+        dialog_resume.setTitle("Countback");
+        dialog_resume.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_resume.setContentView(R.layout.dialog_resume);
+        View v = getWindow().getDecorView();
+        v.setBackgroundResource(android.R.color.transparent);
+
+        /* Only minutes are considered: Days and Hours = 0 */
+        TextView txt = (TextView) dialog_resume.findViewById(R.id.textView_pupresume);
+        String msg = getResources().getString(R.string.dialog_resume_default,username);
+        switch (sdays) {
+            case "0":
+                switch (shours) {
+                    case "0":
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_default, username);
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_mins, smins).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                        }
+                        break;
+                    case "1":
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins, smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                    default:
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_hours, shours).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_hours, shours).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_hours, shours).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins, smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                }
+                break;
+            case "1":
+                switch (shours) {
+                    case "0":
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start,username).concat(getResources().getString(R.string.dialog_resume_day).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins,smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                    case "1":
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day)).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins,smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                    default:
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day)).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_hours,shours).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hours,shours).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_day)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hours,shours).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins,smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                }
+                break;
+            default:
+                switch (shours) {
+                    case "0":
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start,username).concat(getResources().getString(R.string.dialog_resume_days,sdays).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins,smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                    case "1":
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays)).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hour).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins,smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                    default:
+                        switch (smins) {
+                            case "0":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays)).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_hours,shours).concat(getResources().getString(R.string.dialog_resume_end)));
+                                break;
+                            case "1":
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hours,shours).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_min).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                            default:
+                                msg = getResources().getString(R.string.dialog_resume_start, username).concat(getResources().getString(R.string.dialog_resume_days,sdays)).concat(getResources().getString(R.string.dialog_resume_coma)).concat(getResources().getString(R.string.dialog_resume_hours,shours).concat(getResources().getString(R.string.dialog_resume_and)).concat(getResources().getString(R.string.dialog_resume_mins,smins).concat(getResources().getString(R.string.dialog_resume_end))));
+                                break;
+                        }
+                        break;
+                }
+                break;
+        }
+
+        txt.setText(msg);
+        dialog_resume.show();
 
     }
 
