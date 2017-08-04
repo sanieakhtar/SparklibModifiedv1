@@ -24,7 +24,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_pupresume"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/foxyemoji14"
+        app:srcCompat="@drawable/smokeyname"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
@@ -32,11 +32,11 @@
     <TextView
         android:id="@+id/textView_pupresume"
         android:layout_width="210dp"
-        android:layout_height="77dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="22dp"
         android:layout_marginStart="22dp"
         android:layout_marginTop="44dp"
-        android:text="@string/stop_smoke"
+        android:text="@string/dialog_resume_start"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         app:layout_constraintLeft_toLeftOf="parent"

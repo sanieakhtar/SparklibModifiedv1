@@ -48,7 +48,6 @@ public class MainForm extends AppCompatActivity {
         buttonAddData = (Button)findViewById(R.id.button_send);
 
         box_birth.setOnClickListener(openCalender);
-        //box_weight.setInputType(InputType.TYPE_NULL);
         box_weight.setOnClickListener(openWeightSelector);
 
         AddData();

@@ -16,6 +16,19 @@
     <string name="app_main">Hello %1$s! %2$s looks happy today!</string>
     <string name="stop_smoke">Please stop smoking :(</string>
 
+    <!-- Strings used in the resume popup -->
+    <string name="dialog_resume_start">Hey %1$s, it\'s been\u0020</string>
+    <string name="dialog_resume_days">%1$s days\u0020</string>
+    <string name="dialog_resume_day">one day\u0020</string>
+    <string name="dialog_resume_hours">%1$s hours\u0020</string>
+    <string name="dialog_resume_hour">one hour\u0020</string>
+    <string name="dialog_resume_mins">%1$s minutes\u0020</string>
+    <string name="dialog_resume_min">one minute\u0020</string>
+    <string name="dialog_resume_end">since your last cigarette.</string>
+    <string name="dialog_resume_coma">,\u0020</string>
+    <string name="dialog_resume_and">and\u0020</string>
+    <string name="dialog_resume_default">Hey %1$s, you just had a cigarette.</string>
+
     <!-- Strings used in the form -->
     <string name="form_name">Your Name</string>
     <string name="form_dob">Your Birthday</string>
